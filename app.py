@@ -83,25 +83,6 @@ if st.button("Predict Energy Consumption"):
         col2.metric("Scratch (GD) Prediction", f"{pred_scratch:.2f}")
         st.caption(f"Difference: {abs(pred_sklearn - pred_scratch):.4f}")
 
-st.divider()
-st.caption("Note: dataset is synthetic with minimal noise — predictions will be highly accurate (near-perfect R²) and both models will closely agree. This is expected behavior for this dataset, not a real-world guarantee.")
-
-# --- Evaluation metrics ---
-if "metrics" in scratch:
-    st.header("Model evaluation")
-    m = scratch["metrics"]
-    col1, col2 = st.columns(2)
-    with col1:
-        st.subheader("Sklearn (built-in)")
-        st.metric("R²", f"{m['sklearn']['R2']:.4f}")
-        st.metric("RMSE", f"{m['sklearn']['RMSE']:.2f}")
-        st.metric("MSE", f"{m['sklearn']['MSE']:.2f}")
-    with col2:
-        st.subheader("From Scratch (GD)")
-        st.metric("R²", f"{m['scratch']['R2']:.4f}")
-        st.metric("RMSE", f"{m['scratch']['RMSE']:.2f}")
-        st.metric("MSE", f"{m['scratch']['MSE']:.2f}")
-
 # --- Loss curve ---
 if "loss_history" in scratch:
     st.header("Gradient descent convergence")
