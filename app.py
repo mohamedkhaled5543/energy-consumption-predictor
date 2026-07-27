@@ -50,7 +50,6 @@ def build_input():
     # engineered features (must match training exactly)
     row["Occupants_per_sqft"] = row["Number of Occupants"] / row["Square Footage"]
     row["Appliances_per_person"] = row["Appliances Used"] / row["Number of Occupants"]
-    row["Temp_diff_from_comfort"] = (row["Average Temperature"] - 22).abs()
 
     row[num_cols] = scaler.transform(row[num_cols])
     row = pd.get_dummies(row, columns=cat_cols, drop_first=True)
@@ -132,7 +131,7 @@ if "coef_dict" in scratch:
 with st.expander("Preprocessing steps"):
     st.markdown("""
     - Checked for missing values and duplicates
-    - Engineered 3 features: Occupants_per_sqft, Appliances_per_person, Temp_diff_from_comfort
+    - Engineered 3 features: Occupants_per_sqft, Appliances_per_person
     - Scaled numeric features (including engineered ones) with StandardScaler
     - One-hot encoded categorical features (Day of Week, Building Type) with drop_first to avoid multicollinearity
     - Aligned train/test columns after encoding to prevent mismatches
